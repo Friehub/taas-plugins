@@ -1,0 +1,7 @@
+packages:
+  - 'crypto/*'
+  - 'sports/*'
+  - 'economics/*'
+  - 'forex/*'
+  - 'weather/*'
+  - 'registry/*'

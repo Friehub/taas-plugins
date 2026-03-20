@@ -1,0 +1,20 @@
+{
+    "name": "@taas/taas-plugin-sportmonks",
+    "version": "1.0.0",
+    "description": "SportMonks data source for TaaS Gateway",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+        "build": "tsc",
+        "dev": "tsc -w"
+    },
+    "dependencies": {
+        "@taas/discovery": "workspace:*",
+        "@taas/interfaces": "workspace:*",
+        "axios": "^1.6.0",
+        "zod": "^3.22.0"
+    },
+    "devDependencies": {
+        "typescript": "^5.0.0"
+    }
+}

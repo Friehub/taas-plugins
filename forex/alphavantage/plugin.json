@@ -1,0 +1,7 @@
+{
+    "name": "alphavantage",
+    "package": "@taas/taas-plugin-alphavantage",
+    "class": "AlphaVantageDataSource",
+    "category": "forex",
+    "version": "1.1.0"
+}

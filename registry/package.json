@@ -1,0 +1,28 @@
+{
+    "name": "@taas/taas-plugin-registry",
+    "version": "1.1.0",
+    "description": "Registry and Category Mapping for all TaaS Truth Plugins",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Friehub/taas-core.git"
+    },
+    "dependencies": {
+        "@taas/interfaces": "workspace:*",
+        "@taas/discovery": "workspace:*",
+        "@taas/taas-plugin-sportmonks": "workspace:*",
+        "@taas/taas-plugin-theoddsapi": "workspace:*",
+        "@taas/taas-plugin-coingecko": "workspace:*"
+    },
+    "devDependencies": {
+        "typescript": "^5.3.3"
+    },
+    "scripts": {
+        "build": "tsc"
+    },
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com"
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "name": "@taas/plugins-ecosystem",
+    "version": "1.0.0",
+    "private": true,
+    "description": "The official TaaS Plugin Ecosystem repository. Contains adapters for sports, crypto, weather, and more.",
+    "scripts": {
+        "build": "turbo run build",
+        "test": "turbo run test"
+    },
+    "devDependencies": {
+        "typescript": "^5.7.3",
+        "turbo": "^2.0.0"
+    }
+}

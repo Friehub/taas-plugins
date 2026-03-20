@@ -1,0 +1,7 @@
+{
+    "name": "coingecko-api",
+    "package": "@taas/taas-plugin-coingecko",
+    "class": "CoingeckoDataSource",
+    "category": "crypto",
+    "version": "1.0.0"
+}

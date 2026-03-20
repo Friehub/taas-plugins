@@ -1,0 +1,7 @@
+{
+    "name": "cryptocompare-api",
+    "package": "@taas/taas-plugin-cryptocompare",
+    "class": "CryptoCompareDataSource",
+    "category": "crypto",
+    "version": "1.0.0"
+}

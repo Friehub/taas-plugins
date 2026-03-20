@@ -1,0 +1,7 @@
+{
+    "name": "sportdb",
+    "package": "@taas/taas-plugin-sportdb",
+    "class": "SportDBDataSource",
+    "category": "sports",
+    "version": "1.0.0"
+}

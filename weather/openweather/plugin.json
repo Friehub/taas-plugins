@@ -1,0 +1,7 @@
+{
+    "name": "openweather",
+    "package": "@taas/taas-plugin-openweather",
+    "class": "OpenWeatherDataSource",
+    "category": "weather",
+    "version": "1.0.0"
+}

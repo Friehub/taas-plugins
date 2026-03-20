@@ -1,0 +1,7 @@
+{
+    "name": "api-sports",
+    "package": "@taas/taas-plugin-api-sports",
+    "class": "ApiSportsDataSource",
+    "category": "sports",
+    "version": "1.0.0"
+}

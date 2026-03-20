@@ -1,0 +1,7 @@
+{
+    "name": "fred",
+    "package": "@taas/taas-plugin-fred",
+    "class": "FredDataSource",
+    "category": "economics",
+    "version": "1.0.0"
+}
