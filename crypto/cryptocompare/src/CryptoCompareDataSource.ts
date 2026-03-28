@@ -56,27 +56,27 @@ export class CryptoCompareDataSource extends SovereignAdapter<any, CryptoCompare
         throw new Error(`[CryptoCompare] Method ${method} not implemented.`);
     }
 
-    private async fetchSpotPrice(symbol: string, currency: string, signal?: AbortSignal): Promise<CryptoComparePriceData> {
+    private async fetchSpotPrice(symbol: string, currency: string, signal?: AbortSignal): Promise<any> {
         const response = await this.client.get(
-            `https://min-api.cryptocompare.com/data/price`,
+            `https://min-api.cryptocompare.com/data/pricemultifull`,
             {
                 params: {
-                    fsym: symbol,
-                    tsyms: currency
+                    fsyms: symbol.toUpperCase(),
+                    tsyms: currency.toUpperCase()
                 },
                 signal
             }
         );
 
-        const price = response.data[currency.toUpperCase()];
-        if (price === undefined) {
-            throw new Error(`[CryptoCompare] Could not find price for ${symbol}/${currency}`);
+        const data = response.data.RAW?.[symbol.toUpperCase()]?.[currency.toUpperCase()];
+        if (!data) {
+            throw new Error(`[CryptoCompare] Could not find price/volume for ${symbol}/${currency}`);
         }
 
         return {
-            symbol,
-            price: parseFloat(price),
-            timestamp: Date.now()
+            price: parseFloat(data.PRICE),
+            volume_24h: parseFloat(data.VOLUME24HOUR),
+            last_updated: data.LASTUPDATE * 1000
         };
     }
 

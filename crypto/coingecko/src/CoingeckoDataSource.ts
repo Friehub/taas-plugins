@@ -131,7 +131,8 @@ export class CoingeckoDataSource extends SovereignAdapter<any, CoingeckoParams> 
                 params: {
                     ids: ids.join(','),
                     vs_currencies: currency,
-                    include_last_updated_at: true
+                    include_last_updated_at: true,
+                    include_24hr_vol: true
                 },
                 signal
             }
@@ -141,18 +142,20 @@ export class CoingeckoDataSource extends SovereignAdapter<any, CoingeckoParams> 
         for (const [id, data] of Object.entries(response.data)) {
             const castedData = data as any;
             const price = castedData[currency.toLowerCase()];
+            const volume = castedData[`${currency.toLowerCase()}_24h_vol`];
             
             CoingeckoDataSource.bulkCache.set(`${id}:${currency}`, {
                 id,
                 price: typeof price === 'number' ? price : parseFloat(price),
-                timestamp: castedData.last_updated_at ? castedData.last_updated_at * 1000 : timestamp
-            });
+                volume_24h: typeof volume === 'number' ? volume : parseFloat(volume || '0'),
+                last_updated: castedData.last_updated_at ? castedData.last_updated_at * 1000 : timestamp
+            } as any);
         }
 
         CoingeckoDataSource.lastRefresh = timestamp;
     }
 
-    private async fetchHistoricalPrice(normalizedId: string, currency: string, timestamp: number, signal?: AbortSignal): Promise<CoingeckoPriceData> {
+    private async fetchHistoricalPrice(normalizedId: string, currency: string, timestamp: number, signal?: AbortSignal): Promise<any> {
         const from = Math.floor(timestamp / 1000) - 3600;
         const to = Math.floor(timestamp / 1000) + 3600;
         
@@ -169,6 +172,7 @@ export class CoingeckoDataSource extends SovereignAdapter<any, CoingeckoParams> 
         );
 
         const prices = response.data.prices;
+        const volumes = response.data.total_volumes;
         if (!prices || prices.length === 0) {
             throw new Error(`[CoinGecko] No historical data found for ${normalizedId} at ${timestamp}`);
         }
@@ -177,10 +181,12 @@ export class CoingeckoDataSource extends SovereignAdapter<any, CoingeckoParams> 
             return Math.abs(curr[0] - timestamp) < Math.abs(prev[0] - timestamp) ? curr : prev;
         });
 
+        const closestVolume = volumes?.find((v: any) => v[0] === closest[0])?.[1] || 0;
+
         return {
-            id: normalizedId,
             price: closest[1],
-            timestamp: closest[0]
+            volume_24h: closestVolume,
+            last_updated: closest[0]
         };
     }
 

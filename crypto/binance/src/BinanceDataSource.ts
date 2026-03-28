@@ -72,24 +72,30 @@ export class BinanceDataSource extends SovereignAdapter<any, BinanceParams> {
         }
     }
 
-    private async fetchSpotPrice(symbol: string, timestamp?: number, signal?: AbortSignal): Promise<BinancePriceData> {
+    private async fetchSpotPrice(symbol: string, timestamp?: number, signal?: AbortSignal): Promise<any> {
         if (timestamp) {
-            return this.fetchHistoricalSpotPrice(symbol, timestamp, signal);
+            const hist = await this.fetchHistoricalSpotPrice(symbol, timestamp, signal);
+            return {
+                price: hist.price,
+                last_updated: hist.timestamp,
+                volume_24h: 0 // Historical klines might need more logic for volume if required
+            };
         }
 
         const base = 'https://api.binance.com';
         try {
-            console.log(`[Binance] Fetching targeted price for ${symbol} from ${base}...`);
-            const response = await this.client.get(`${base}/api/v3/ticker/price`, { 
+            console.log(`[Binance] Fetching targeted price and volume for ${symbol} from ${base}...`);
+            // Use 24hr ticker for volume + price
+            const response = await this.client.get(`${base}/api/v3/ticker/24hr`, { 
                 params: { symbol },
                 signal 
             });
-            const timestamp = Date.now();
+            const now = Date.now();
 
             return {
-                symbol: response.data.symbol,
-                price: parseFloat(response.data.price),
-                timestamp
+                price: parseFloat(response.data.lastPrice),
+                volume_24h: parseFloat(response.data.volume),
+                last_updated: now
             };
         } catch (err: any) {
             console.error(`[Binance] Targeted fetch failed for ${symbol}: ${err.message}`);
