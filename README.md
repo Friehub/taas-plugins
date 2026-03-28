@@ -148,6 +148,31 @@ export class MyDataSource extends SovereignAdapter<MyResponse, MyParams> {
 }
 ```
 
+### Supporting Multiple Endpoints / APIs
+
+A single plugin can support multiple endpoints (or even multiple distinct APIs like Binance Spot vs Binance Futures). You declare the supported endpoints in the `methods` array, and branch on `params.method` inside `fetchData`:
+
+```typescript
+// Define multiple methods in the constructor
+capabilities: {
+  methods: ['spotPrice', 'orderBook', 'historicalPrice'],
+}
+
+// Branch on the method in fetchData
+protected async fetchData(params: MyParams, signal?: AbortSignal): Promise<MyResponse> {
+  const method = params.method || 'default';
+  
+  switch (method) {
+    case 'spotPrice':
+      return this.client.get('.../ticker/price', { params, signal }).then(r => r.data);
+    case 'orderBook':
+      return this.client.get('.../depth', { params, signal }).then(r => r.data);
+    default:
+      throw new Error(`Unsupported method: ${method}`);
+  }
+}
+```
+
 ### `plugin.json`
 
 ```json
