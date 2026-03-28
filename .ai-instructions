@@ -1,0 +1,178 @@
+# TaaS Plugin — AI/LLM Context File
+#
+# This file is consumed by AI coding assistants (Cursor, GitHub Copilot, Antigravity, etc.)
+# to provide accurate context for plugin development.
+#
+# ALWAYS load this file into your context window before generating any plugin code.
+
+## Repository Purpose
+
+This is the TaaS Plugin Ecosystem — a collection of TypeScript data source adapters that extend
+the TaaS Gateway's Unified Capability Model (UCM). Each plugin wraps one external data provider API.
+
+## The ONLY Valid Base Class
+
+Every plugin MUST extend `SovereignAdapter` from `@taas/discovery`. Direct implementation of
+`DataSource` from `@taas/interfaces` is forbidden.
+
+```typescript
+import { SovereignAdapter, AdapterConfig, DataCategory } from '@taas/discovery';
+
+export class MyDataSource extends SovereignAdapter<MyResponseType, MyParamsType> {
+  constructor(config: Partial<AdapterConfig> = {}) {
+    super({
+      name: 'Human Readable Name',      // required
+      category: DataCategory.CUSTOM,    // required — must be a valid DataCategory value
+      responseSchema: MyZodSchema,      // recommended — Zod schema for runtime validation
+      capabilities: {
+        supportsHistorical: false,       // required
+        supportsRealtime: true,          // required
+        methods: ['methodName'],         // required — at least one entry
+      },
+      ...config,
+    });
+  }
+
+  protected async fetchData(params: MyParamsType, signal?: AbortSignal): Promise<MyResponseType> {
+    // Use this.client (Axios instance). ALWAYS forward signal.
+    const response = await this.client.get('https://api.example.com/v1/data', {
+      params: { symbol: params.symbol },
+      signal,  // <-- NEVER omit this
+    });
+    return response.data;
+  }
+
+  protected async getMockData(params: MyParamsType): Promise<MyResponseType> {
+    // ZERO network calls here. Return hardcoded plausible data.
+    return { value: 1234.56, timestamp: params.timestamp ?? Date.now() };
+  }
+}
+```
+
+## SovereignAdapter — Available Properties
+
+| Property | Type | Description |
+|---|---|---|
+| `this.id` | `string` | Auto-derived from `name`; or pass `id` in config |
+| `this.name` | `string` | Human-readable name |
+| `this.category` | `DataCategory` | Set in constructor |
+| `this.capabilities` | `SourceCapabilities` | Set in constructor |
+| `this.client` | `AxiosInstance` | Pre-configured HTTP client with SSRF protection |
+| `this.apiKey` | `string \| undefined` | Set from `config.apiKey` |
+| `this.useMocks` | `boolean` | True in test mode |
+| `this.secretProvider` | `SecretProvider \| undefined` | For runtime secret retrieval |
+
+## Optional Lifecycle Hooks
+
+```typescript
+async initialize(): Promise<void> { /* setup: auth token refresh, prefetch etc */ }
+async dispose(): Promise<void>    { /* cleanup: close connections, clear timers */ }
+```
+
+## All Valid DataCategory Values
+
+Use ONLY these values for the `category` field:
+
+```typescript
+enum DataCategory {
+  CRYPTO     = "crypto",
+  SPORTS     = "sports",
+  WEATHER    = "weather",
+  ECONOMICS  = "economics",
+  FINANCE    = "finance",
+  FOREX      = "forex",
+  ONCHAIN    = "onchain",
+  SOCIAL     = "social",
+  PREDICTION = "prediction",
+  NEWS       = "news",
+  MUSIC      = "music",
+  DEV        = "dev",
+  AI         = "ai",
+  WEB        = "web",
+  RANDOM     = "random",
+  CALENDAR   = "calendar",
+  AGENT      = "agent",
+  CUSTOM     = "custom",
+}
+```
+
+DO NOT invent values. If none of the above fits, use `DataCategory.CUSTOM`.
+
+## plugin.json Schema
+
+```json
+{
+  "name": "provider-slug",
+  "package": "@taas/plugin-provider-slug",
+  "class": "ExactExportedClassName",
+  "category": "one-of-the-valid-values-above",
+  "version": "1.0.0"
+}
+```
+
+- `name` must be a lowercase kebab-case slug
+- `package` must match `package.json` `name` exactly
+- `class` must match the exported class name exactly (case-sensitive)
+- `category` must be the string value from DataCategory (not the enum key)
+- `version` must be semver
+
+## The UCM Compliance Test
+
+Every plugin gets a test file. The minimum:
+
+```typescript
+import { describeUcmCompliance } from '@taas/plugin-test-utils';
+import { MyDataSource } from './MyDataSource.js';
+
+describeUcmCompliance('MyDataSource', () => new MyDataSource({ useMocks: true }));
+```
+
+The harness checks: identity, capabilities, mock contract, AbortSignal, error typing, metadata completeness.
+
+## STRICT PROHIBITIONS for AI-Generated Code
+
+The following are NEVER acceptable in a plugin. If you generate any of these, you have made an error:
+
+1. `import { ... } from 'taas-gateway/...'` — illegal. Only `@taas/discovery` and `@taas/interfaces`.
+2. `import { ... } from '../../../taas-gateway/...'` — illegal relative path to gateway source.
+3. `DataCategory.BLOCKCHAIN`, `DataCategory.DeFi`, or any value not listed above — hallucination.
+4. `await fetch(...)` or `await axios.get(...)` inside `getMockData` — illegal. Mock = offline.
+5. `throw 'some string'` — illegal. Always `throw new Error('some string')`.
+6. Omitting `signal` from `this.client.get/post` — always forward it.
+7. Hardcoded API keys in source code or plugin.json — illegal. Use `config.apiKey`.
+8. `eval()`, `new Function()`, `require(variable)` — illegal.
+9. Top-level `await` or side-effecting code at module scope — illegal.
+
+## Package Structure
+
+```
+<category>/<name>/
+├── src/
+│   ├── <Name>DataSource.ts   # main implementation
+│   ├── <Name>.test.ts        # UCM harness + provider tests
+│   └── index.ts              # re-exports the class
+├── plugin.json
+├── package.json
+└── tsconfig.json
+```
+
+## Valid Import Packages
+
+| Package | What it provides |
+|---|---|
+| `@taas/discovery` | `SovereignAdapter`, `AdapterConfig`, `DataCategory`, `LogicRegistry` |
+| `@taas/interfaces` | `DataSource`, `TruthPoint`, `DataRequest`, `DataResponse`, `SourceCapabilities` |
+| `@taas/plugin-test-utils` | `describeUcmCompliance`, test fixtures (dev dependency only) |
+| `zod` | Schema validation |
+| `axios` | NOT imported directly — use `this.client` from SovereignAdapter |
+
+## Canonical Generation Prompt
+
+When asked to implement a plugin, use this internal checklist:
+1. Extend `SovereignAdapter` with correct generic types
+2. Pass all required constructor fields (`name`, `category`, `capabilities.methods`)
+3. Implement `fetchData` — forward `signal`, return typed data, throw `new Error(...)`
+4. Implement `getMockData` — no network, deterministic, valid return type
+5. Output valid `plugin.json` with all five required fields
+6. Output `<Name>.test.ts` calling `describeUcmCompliance`
+7. Output `package.json` with `@taas/discovery`, `@taas/interfaces`, `@taas/plugin-test-utils`

@@ -5,3 +5,7 @@ packages:
   - 'forex/*'
   - 'weather/*'
   - 'registry/*'
+  - '__tests__/*'
+  - '../taas-gateway/ts/interfaces'
+  - '../taas-gateway/ts/sidecar'
+  - '../taas-gateway/proto'

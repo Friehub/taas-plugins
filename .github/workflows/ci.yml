@@ -1,0 +1,56 @@
+name: TaaS Plugins CI
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+
+jobs:
+  ci:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        run: echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - name: Cache pnpm store
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: ${{ runner.os }}-pnpm-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build test utils
+        run: pnpm --filter @taas/plugin-test-utils build
+
+      - name: Build all plugins (type-check)
+        run: pnpm --filter !@taas/plugin-test-utils run build
+
+      - name: Run UCM compliance harness (all plugins)
+        run: pnpm --filter !@taas/plugin-test-utils run test
+
+      - name: Security audit
+        run: pnpm audit --audit-level high
+
+      - name: Secret scan (Gitleaks)
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

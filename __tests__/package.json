@@ -1,0 +1,29 @@
+{
+  "name": "@taas/plugin-test-utils",
+  "version": "1.0.0",
+  "description": "Shared UCM compliance test harness for taas-plugins",
+  "private": true,
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@taas/interfaces": "workspace:*",
+    "@taas/discovery": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.3",
+    "@types/node": "^20.0.0",
+    "vitest": "^2.0.0"
+  }
+}
