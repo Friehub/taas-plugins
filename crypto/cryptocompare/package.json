@@ -4,7 +4,7 @@
   "description": "CryptoCompare Data Source for TaaS",
   "main": "src/CryptoCompareDataSource.ts",
   "dependencies": {
-    "@taas/discovery": "workspace:*",
+    "@taas/plugin-sdk": "workspace:*",
     "@taas/interfaces": "workspace:*"
   }
 }

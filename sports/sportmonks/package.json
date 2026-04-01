@@ -9,7 +9,7 @@
         "dev": "tsc -w"
     },
     "dependencies": {
-        "@taas/discovery": "workspace:*",
+        "@taas/plugin-sdk": "workspace:*",
         "@taas/interfaces": "workspace:*",
         "axios": "^1.6.0",
         "zod": "^3.22.0"

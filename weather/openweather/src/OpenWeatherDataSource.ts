@@ -1,4 +1,4 @@
-import { GenericRestAdapter, SchemaAdapterConfig } from '@taas/discovery';
+import { GenericRestAdapter, SchemaAdapterConfig } from '@taas/plugin-sdk';
 
 /**
  * OpenWeatherDataSource: Standard weather truth.

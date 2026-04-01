@@ -1,4 +1,4 @@
-import { GenericRestAdapter, SchemaAdapterConfig } from '@taas/discovery';
+import { GenericRestAdapter, SchemaAdapterConfig } from '@taas/plugin-sdk';
 
 /**
  * AlphaVantageDataSource: Multi-asset financial adapter for TaaS.

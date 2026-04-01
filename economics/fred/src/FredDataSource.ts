@@ -1,4 +1,4 @@
-import { GenericRestAdapter, SchemaAdapterConfig } from '@taas/discovery';
+import { GenericRestAdapter, SchemaAdapterConfig } from '@taas/plugin-sdk';
 
 /**
  * FredDataSource: Federal Reserve Economic Data (FRED).

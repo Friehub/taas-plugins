@@ -10,7 +10,7 @@
     },
     "dependencies": {
         "@taas/interfaces": "workspace:*",
-        "@taas/discovery": "workspace:*",
+        "@taas/plugin-sdk": "workspace:*",
         "axios": "^1.6.0",
         "zod": "^3.22.4"
     },

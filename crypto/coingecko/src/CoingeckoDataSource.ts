@@ -1,4 +1,5 @@
-import { SovereignAdapter, AdapterConfig, DataCategory } from '@taas/discovery';
+import { SovereignAdapter, AdapterConfig } from '@taas/plugin-sdk';
+import { DataCategory } from '@taas/interfaces';
 
 import { z } from 'zod';
 import * as fs from 'fs';
@@ -12,7 +13,7 @@ export const CoingeckoPriceSchema = z.object({
 
 export type CoingeckoPriceData = z.infer<typeof CoingeckoPriceSchema>;
 
-export interface CoingeckoParams {
+export interface CoingeckoParams extends Record<string, unknown> {
     id: string; // e.g., 'bitcoin'
     vs_currency?: string; // e.g., 'usd'
     timestamp?: number;
@@ -85,8 +86,7 @@ export class CoingeckoDataSource extends SovereignAdapter<any, CoingeckoParams> 
         const timestamp = params.timestamp;
 
         // Map symbol to ID if id is missing OR use ticker mapper
-        let coinId = params.id;
-            coinId = (params as any).symbol;
+        let coinId = params.id || (params as any).symbol;
 
         if (!coinId) {
             throw new Error("[CoinGecko] Required parameter 'id' (e.g., 'bitcoin') or 'symbol' is missing.");

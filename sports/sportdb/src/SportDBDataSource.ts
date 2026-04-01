@@ -1,4 +1,4 @@
-import { SovereignAdapter, AdapterConfig, DataCategory } from '@taas/discovery';
+import { SovereignAdapter, AdapterConfig, DataCategory } from '@taas/plugin-sdk';
 import { z } from 'zod';
 
 export const SportDBScoreSchema = z.object({
