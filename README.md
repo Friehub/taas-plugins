@@ -1,4 +1,4 @@
-# Friehub Truth Adapters 🛡️
+# Friehub Truth Adapters 
 
 The official, **open-contribution** ecosystem for creating Verifiable Fact sources for the Friehub Network.
 
@@ -14,7 +14,7 @@ Our architecture follows the **Sovereign Execution Principle**:
 
 ---
 
-## 🚀 Development Workflow
+##  Development Workflow
 
 ### 1. Install the SDK
 Use the `@friehub/plugin-sdk` to ensure your adapter is compliant with the network's resilience and security requirements.
@@ -35,38 +35,38 @@ export class MyAdapter extends SovereignAdapter {
     // 1. Fetch from source
     const raw = await this.client.get("https://api.example.com", { params });
     
-    // 2. Normalize and return
+    // 2. Normalize and return (ALWAYS use source-provided timestamps)
     return {
       value: raw.data.result,
-      timestamp: Date.now()
+      timestamp: raw.data.source_time 
     };
   }
 
   protected async getMockData(params: any): Promise<any> {
-    return { value: 100, timestamp: Date.now() };
+    return { value: 100, timestamp: 1713960000 }; // Use a fixed constant for mock determinism
   }
 }
 ```
 
 ---
 
-## 🏛️ Best Practices
+##  Best Practices
 
-### ✅ Normalization is Mandatory
+###  Normalization is Mandatory
 The Rust Gateway does **not** understand specific API formats (like CoinGecko or OpenWeather). Your adapter MUST convert the source data into a clean, ABI-encodable format.
 
-### ✅ Resilience by Default
+###  Resilience by Default
 Always implement `getMockData`. The Friehub Network uses mocks for safe simulation and automated testing of your adapter before it is activated for live on-chain tasks.
 
-### ✅ Security Constraints
-Because adapters run in a **Deno Isolate**:
-- Use `this.client` (Axios) for network requests.
-- Avoid Node.js-only modules (`fs`, `path`, `child_process`).
-- Ensure all dependencies are compatible with a web-standard runtime.
+### Determinism is Critical
+The TaaS Consensus layer hashes the adapter's output. If you use `Date.now()`, different operators will generate different hashes, causing consensus to fail.
+- **Always** prioritize `timestamp` fields provided by the data source.
+- **Never** use `Date.now()` or `Math.random()` in the primary data payload.
+- If no timestamp is provided, use a windowed value (e.g., `Math.floor(Date.now() / 60000)`).
 
 ---
 
-## 📂 Repository Structure
+## Repository Structure
 - **`/crypto`**, **`/weather`**, **`/forex`**: Pre-categorized specialized adapter suites.
 - **`/registry`**: UCM Capability definitions.
 - **`scripts/scaffold.sh`**: Instantly generate a new adapter skeleton.
