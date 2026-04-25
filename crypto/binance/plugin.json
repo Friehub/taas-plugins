@@ -1,6 +1,6 @@
 {
     "name": "binance-spot",
-    "package": "@taas/taas-plugin-binance",
+    "package": "@friehub/plugin-binance",
     "class": "BinanceDataSource",
     "category": "crypto",
     "version": "1.0.0"

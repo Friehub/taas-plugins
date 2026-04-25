@@ -2,7 +2,7 @@
  * DataRequest factory helpers for use in plugin tests.
  */
 
-import type { DataRequest, AttestationContext } from '@taas/interfaces';
+import type { DataRequest, AttestationContext } from '@friehub/interfaces';
 
 export function makeDataRequest(
   params: Record<string, unknown>,

@@ -1,6 +1,6 @@
 {
     "name": "sportdb",
-    "package": "@taas/taas-plugin-sportdb",
+    "package": "@friehub/plugin-sportdb",
     "class": "SportDBDataSource",
     "category": "sports",
     "version": "1.0.0"

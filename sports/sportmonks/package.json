@@ -1,5 +1,5 @@
 {
-    "name": "@taas/taas-plugin-sportmonks",
+    "name": "@friehub/plugin-sportmonks",
     "version": "1.0.0",
     "description": "SportMonks data source for TaaS Gateway",
     "main": "dist/index.js",
@@ -9,8 +9,8 @@
         "dev": "tsc -w"
     },
     "dependencies": {
-        "@taas/plugin-sdk": "workspace:*",
-        "@taas/interfaces": "workspace:*",
+        "@friehub/plugin-sdk": "^1.0.0",
+        "@friehub/interfaces": "^1.1.1",
         "axios": "^1.6.0",
         "zod": "^3.22.0"
     },

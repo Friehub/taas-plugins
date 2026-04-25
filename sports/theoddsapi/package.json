@@ -1,5 +1,5 @@
 {
-    "name": "@taas/taas-plugin-theoddsapi",
+    "name": "@friehub/plugin-theoddsapi",
     "version": "1.1.0",
     "private": false,
     "main": "dist/index.js",
@@ -10,8 +10,8 @@
     "dependencies": {
         "axios": "^1.7.9",
         "zod": "^3.22.4",
-        "@taas/interfaces": "workspace:*",
-        "@taas/plugin-sdk": "workspace:*"
+        "@friehub/interfaces": "^1.1.1",
+        "@friehub/plugin-sdk": "^1.0.0"
     },
     "devDependencies": {
         "typescript": "^5.7.3"

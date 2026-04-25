@@ -1,11 +1,11 @@
-import { SportMonksDataSource } from '@taas/taas-plugin-sportmonks';
-import { TheOddsApiDataSource } from '@taas/taas-plugin-theoddsapi';
-import { AlphaVantageDataSource } from '@taas/taas-plugin-alphavantage';
-import { ExchangeRateDataSource } from '@taas/taas-plugin-exchangerate';
-import { FredDataSource } from '@taas/taas-plugin-fred';
-import { WorldBankDataSource } from '@taas/taas-plugin-worldbank';
-import { CoingeckoDataSource } from '@taas/taas-plugin-coingecko';
-import { OpenWeatherDataSource } from '@taas/taas-plugin-openweather';
+import { SportMonksDataSource } from '@friehub/plugin-sportmonks';
+import { TheOddsApiDataSource } from '@friehub/plugin-theoddsapi';
+import { AlphaVantageDataSource } from '@friehub/plugin-alphavantage';
+import { ExchangeRateDataSource } from '@friehub/plugin-exchangerate';
+import { FredDataSource } from '@friehub/plugin-fred';
+import { WorldBankDataSource } from '@friehub/plugin-worldbank';
+import { CoingeckoDataSource } from '@friehub/plugin-coingecko';
+import { OpenWeatherDataSource } from '@friehub/plugin-openweather';
 
 export interface PluginRegistryConfig {
     keys: {

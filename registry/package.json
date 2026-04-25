@@ -1,5 +1,5 @@
 {
-    "name": "@taas/taas-plugin-registry",
+    "name": "@friehub/plugin-registry",
     "version": "1.1.0",
     "description": "Registry and Category Mapping for all TaaS Truth Plugins",
     "main": "dist/index.js",
@@ -10,11 +10,11 @@
         "url": "https://github.com/Friehub/taas-core.git"
     },
     "dependencies": {
-        "@taas/interfaces": "workspace:*",
-        "@taas/plugin-sdk": "workspace:*",
-        "@taas/taas-plugin-sportmonks": "workspace:*",
-        "@taas/taas-plugin-theoddsapi": "workspace:*",
-        "@taas/taas-plugin-coingecko": "workspace:*"
+        "@friehub/interfaces": "^1.1.1",
+        "@friehub/plugin-sdk": "^1.0.0",
+        "@friehub/plugin-sportmonks": "^1.1.1",
+        "@friehub/plugin-theoddsapi": "^1.1.1",
+        "@friehub/plugin-coingecko": "^1.1.1"
     },
     "devDependencies": {
         "typescript": "^5.3.3"

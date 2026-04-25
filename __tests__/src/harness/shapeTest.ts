@@ -14,7 +14,7 @@
  * not exact values (which change on each API call).
  */
 
-import { SovereignAdapter } from '@taas/plugin-sdk';
+import { SovereignAdapter } from '@friehub/plugin-sdk';
 
 /**
  * Compares the structure of two objects recursively.

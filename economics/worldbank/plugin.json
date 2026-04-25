@@ -1,6 +1,6 @@
 {
     "name": "worldbank-api",
-    "package": "@taas/taas-plugin-worldbank",
+    "package": "@friehub/plugin-worldbank",
     "class": "WorldBankDataSource",
     "category": "economics",
     "version": "1.1.0"

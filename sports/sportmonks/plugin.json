@@ -1,6 +1,6 @@
 {
     "name": "sportmonks",
-    "package": "@taas/taas-plugin-sportmonks",
+    "package": "@friehub/plugin-sportmonks",
     "class": "SportMonksDataSource",
     "category": "sports",
     "version": "1.0.0"

@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
-import type { DataSource } from '@taas/interfaces';
-import { DataCategory } from '@taas/interfaces';
+import type { DataSource } from '@friehub/interfaces';
+import { DataCategory } from '@friehub/interfaces';
 import { makeDataRequest, makeAbortedRequest } from '../fixtures/DataRequest.fixture.js';
 
 /**

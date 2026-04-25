@@ -14,7 +14,7 @@
         "forceConsistentCasingInFileNames": true,
         "baseUrl": ".",
         "paths": {
-            "@taas/discovery": [
+            "@friehub/plugin-sdk": [
                 "../../sovereign-logic/dist/index"
             ]
         }

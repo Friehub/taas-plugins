@@ -1,10 +1,10 @@
 {
-  "name": "@taas/taas-plugin-cryptocompare",
+  "name": "@friehub/plugin-cryptocompare",
   "version": "1.0.0",
   "description": "CryptoCompare Data Source for TaaS",
   "main": "src/CryptoCompareDataSource.ts",
   "dependencies": {
-    "@taas/plugin-sdk": "workspace:*",
-    "@taas/interfaces": "workspace:*"
+    "@friehub/plugin-sdk": "^1.0.0",
+    "@friehub/interfaces": "^1.1.1"
   }
 }

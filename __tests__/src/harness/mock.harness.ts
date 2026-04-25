@@ -1,5 +1,5 @@
 import { vi } from 'vitest';
-import type { DataSource } from '@taas/interfaces';
+import type { DataSource } from '@friehub/interfaces';
 import { makeDataRequest } from '../fixtures/DataRequest.fixture.js';
 
 /**

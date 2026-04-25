@@ -1,4 +1,4 @@
-import { GenericRestAdapter, SchemaAdapterConfig } from '@taas/plugin-sdk';
+import { GenericRestAdapter, SchemaAdapterConfig } from '@friehub/plugin-sdk';
 
 /**
  * TheOddsApiAdapter: Specialized for sport match odds and scores.

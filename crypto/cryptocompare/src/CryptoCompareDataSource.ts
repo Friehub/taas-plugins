@@ -1,4 +1,4 @@
-import { SovereignAdapter, AdapterConfig, DataCategory } from '@taas/plugin-sdk';
+import { SovereignAdapter, AdapterConfig, DataCategory } from '@friehub/plugin-sdk';
 import { z } from 'zod';
 import * as fs from 'fs';
 import * as path from 'path';

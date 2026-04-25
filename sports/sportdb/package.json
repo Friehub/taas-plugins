@@ -1,5 +1,5 @@
 {
-    "name": "@taas/taas-plugin-sportdb",
+    "name": "@friehub/plugin-sportdb",
     "version": "1.0.0",
     "description": "TheSportsDB data adapter for TaaS Gateway",
     "main": "dist/index.js",
@@ -9,8 +9,8 @@
         "test": "echo \"No tests\""
     },
     "dependencies": {
-        "@taas/interfaces": "workspace:*",
-        "@taas/plugin-sdk": "workspace:*",
+        "@friehub/interfaces": "^1.1.1",
+        "@friehub/plugin-sdk": "^1.0.0",
         "axios": "^1.6.0",
         "zod": "^3.22.4"
     },

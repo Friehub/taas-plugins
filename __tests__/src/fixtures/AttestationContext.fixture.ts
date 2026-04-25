@@ -2,7 +2,7 @@
  * AttestationContext factory helpers for use in plugin tests.
  */
 
-import type { AttestationContext } from '@taas/interfaces';
+import type { AttestationContext } from '@friehub/interfaces';
 
 export function makeAttestationContext(
   overrides: Partial<AttestationContext> = {},

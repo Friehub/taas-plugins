@@ -1,7 +1,23 @@
 {
-    "name": "coingecko-api",
-    "package": "@taas/taas-plugin-coingecko",
+    "name": "coingecko",
+    "package": "@friehub/plugin-coingecko",
     "class": "CoingeckoDataSource",
     "category": "crypto",
-    "version": "1.0.0"
+    "version": "1.0.0",
+    "capability": {
+        "method": "crypto.price",
+        "label": "CoinGecko Crypto Price",
+        "description": "Fetches real-time prices from CoinGecko API",
+        "output_schema": {
+            "type": "object",
+            "properties": {
+                "price": { "type": "number", "min": 0 }
+            },
+            "required": ["price"]
+        },
+        "mapping": {
+            "BTC": "bitcoin",
+            "ETH": "ethereum"
+        }
+    }
 }

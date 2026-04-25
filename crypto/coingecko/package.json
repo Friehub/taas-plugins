@@ -1,5 +1,5 @@
 {
-    "name": "@taas/taas-plugin-coingecko",
+    "name": "@friehub/plugin-coingecko",
     "version": "1.1.0",
     "description": "CoinGecko data adapter for Sovereign Logic",
     "main": "dist/index.js",
@@ -9,8 +9,8 @@
         "test": "echo \"No tests\""
     },
     "dependencies": {
-        "@taas/interfaces": "workspace:*",
-        "@taas/plugin-sdk": "workspace:*",
+        "@friehub/interfaces": "^1.2.0",
+        "@friehub/plugin-sdk": "^1.1.0",
         "axios": "^1.6.0",
         "zod": "^3.22.4"
     },

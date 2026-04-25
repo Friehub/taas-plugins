@@ -6,7 +6,3 @@ packages:
   - 'weather/*'
   - 'registry/*'
   - '__tests__/*'
-  - '../taas-gateway/ts/interfaces'
-  - '../taas-gateway/ts/sidecar'
-  - '../taas-gateway/ts/plugin-sdk'
-  - '../taas-gateway/proto'

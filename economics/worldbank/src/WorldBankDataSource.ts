@@ -1,4 +1,4 @@
-import { GenericRestAdapter, SchemaAdapterConfig } from '@taas/plugin-sdk';
+import { GenericRestAdapter, SchemaAdapterConfig } from '@friehub/plugin-sdk';
 
 /**
  * WorldBankDataSource: Open Access macro-economic data.
